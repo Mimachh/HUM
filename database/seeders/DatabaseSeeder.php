@@ -37,7 +37,11 @@ class DatabaseSeeder extends Seeder
             ['id' => 4,'name' => 'Chambre'],
             ['id' => 5,'name' => 'Canapé-lit'],
         ]);
-
+        
+        DB::table('villes')->insert([
+            ['id' => 1, 'name' => 'Le mans'],
+          
+        ]);
         
     }
 }

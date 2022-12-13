@@ -6,14 +6,21 @@ use App\Models\Ville;
 use App\Models\Annonce;
 use Livewire\Component;
 use App\Models\Condition;
+use Livewire\WithFileUploads;
 
 class Annonces extends Component
 {
+    use WithFileUploads;
+
     public $annonces;
     public $conditions;
     public $villes;
     public $user_id;
     public $email;
+    
+    public $titre, $nom, $prenom, $surface, $ville_id, 
+            $photo, $start_date, $end_date, $places, $vetements, $draps,
+            $argent, $nourriture, $infos, $phone, $condition_id;
 
 
     public function mount()
@@ -51,33 +58,39 @@ class Annonces extends Component
         return view('annonces.create');
     }
 
+    protected function rules()
+
+    {
+        return [
+
+            'titre' => 'required|min:6',
+            'nom' =>  'required|max:30',
+            'prenom' => 'required|max:30',
+            'condition_id' => 'required|integer',
+            'surface' => 'required|numeric',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date',
+            'places' => 'required|numeric',
+            'vetements' => 'boolean',
+            'draps' => 'boolean',
+            'nourriture' => 'boolean',
+            'argent' => 'boolean',
+            'infos' => 'nullable|max:255',
+            'phone' => 'required|max:10',
+            'email' => 'required|email',
+            'ville_id' => 'required|min:1',
+        ];
+    }
+
     
 
     public function store()
     {
-       $validated = $this->validate([
-        'titre' => ,
-        'nom' => ,
-        'prenom' => ,
-        'condition_id' => ,
-        'surface' => ,
-        'ville_id' => ,
-        'start_date' => ,
-        'end_date' => ,
-        'places' => $,
-        'vetements' => ,
-        'draps' => ,
-        'nourriture' => ,
-        'argent' => ,
-        'infos' => ,
-        'phone' => ,
-        'email' => ,
-        'user_id' => ,
-        'photo' => ,
-        ]);
+    
+        $this->validate();
 
         $name_file = md5($this->photo . microtime()).'.'.$this->photo->extension();
-        $this->photo->storeAs('annonces_photos', $name_file);
+        $this->photo->storeAs('annonces_photos', $name_file); 
 
         $annonce = Annonce::create([
             'titre' => $this->titre,
@@ -85,7 +98,7 @@ class Annonces extends Component
             'prenom' => $this->prenom,
             'condition_id' => $this->condition_id,
             'surface' => $this->surface,
-            'ville_id' => $this->ville_id,
+            'ville_id' => $this->ville_id, 
             'start_date' => $this->start_date,
             'end_date' => $this->end_date,
             'places' => $this->places,
@@ -97,7 +110,7 @@ class Annonces extends Component
             'phone' => $this->phone,
             'email' => $this->email,
             'user_id' => $this->user_id,
-            'photo' => $name_file,
+            'photo' => $name_file, 
         ]);
     }
 
