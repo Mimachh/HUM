@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Ville extends Model
 {
     use HasFactory;
+
+    public function annonces()
+    {
+        return $this->hasMany('App\Models\Annonce');
+    }
 }

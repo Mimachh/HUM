@@ -6,12 +6,14 @@ use App\Models\Ville;
 use App\Models\Annonce;
 use Livewire\Component;
 use App\Models\Condition;
+use Livewire\WithPagination;
 use Livewire\WithFileUploads;
 
 class Annonces extends Component
 {
     use WithFileUploads;
-
+    use WithPagination;
+    
     public $annonces;
     public $conditions;
     public $villes;
@@ -35,8 +37,12 @@ class Annonces extends Component
 
     public function index()
     {
-        return view('annonces.index');
+        $annonces = Annonce::paginate(8);
+      
+        
+        return view('annonces.index', ['annonces' => $annonces]);
     }
+    
 
     /* Séparation des pages */
 
@@ -71,10 +77,10 @@ class Annonces extends Component
             'start_date' => 'required|date',
             'end_date' => 'required|date',
             'places' => 'required|numeric',
-            'vetements' => 'boolean',
-            'draps' => 'boolean',
-            'nourriture' => 'boolean',
-            'argent' => 'boolean',
+            'vetements' => 'nullable|boolean',
+            'draps' => 'nullable|boolean',
+            'nourriture' => 'nullable|boolean',
+            'argent' => 'nullable|boolean',
             'infos' => 'nullable|max:255',
             'phone' => 'required|max:10',
             'email' => 'required|email',

@@ -60,6 +60,16 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
+    public function annonces()
+    {
+        return $this->hasMany('App\Models\Annonce');
+    }
+
+    public function fav()
+    {
+        return $this->belongsToMany('App\Models\Annonce');
+    }
+
     public function roles()
     {
         return $this->belongsToMany('App\Models\Role');
