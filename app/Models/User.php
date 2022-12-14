@@ -70,8 +70,8 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Models\Annonce');
     }
 
-    public function roles()
+    public function role()
     {
-        return $this->belongsToMany('App\Models\Role');
+        return $this->belongsTo('App\Models\Role');
     }
 }

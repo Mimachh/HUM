@@ -30,3 +30,19 @@ Route::middleware([
 
 Route::resource('/annonces', Annonces::class)->except('index');
 Route::get('/', [Annonces::class, 'index'])->name('annonces.index');
+
+Route::middleware(['auth', 'role:Migrant'])->group(function(){
+
+});
+
+Route::middleware(['auth', 'role:Admin'])->group(function(){
+
+});
+
+Route::middleware(['auth', 'role:Association'])->group(function(){
+
+});
+
+Route::middleware(['auth', 'role:Propriétaire'])->group(function(){
+
+});
